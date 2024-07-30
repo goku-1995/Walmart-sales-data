@@ -44,3 +44,41 @@ SELECT
         ELSE "Evening"
     END) AS time_of_day
 FROM sales;
+
+alter table sales add column time_of_day varchar(20);
+
+update sales
+set time_of_day = (CASE
+        WHEN 'time' BETWEEN '00:00:00' AND '12:00:00' THEN 'Morning'
+        WHEN 'time' BETWEEN '12:01:00' AND '16:00:00' THEN 'Afternoon'
+        ELSE 'Evening'
+    END);
+
+-- Day name
+
+select dayname(date) from sales;
+
+alter table sales add column day_name varchar(20);
+
+UPDATE sales 
+SET day_name =  dayname(date);
+
+-- month name
+
+select monthname(date) from sales;
+
+alter table sales add column month_name varchar(20);
+
+UPDATE sales 
+SET month_name =  monthname(date);
+
+-- How many unique cities does the data have?
+
+SELECT DISTINCT
+    (city)
+FROM
+    sales;
+
+-- In which city is each branch?
+
+select distinct branch, city from sales
